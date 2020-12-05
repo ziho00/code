@@ -326,9 +326,10 @@ function countingSort(arr: Array<number>, compare: Function): Array<number> {
   return sortArr;
 }
 
+// usecase
 let arr: number[] = [];
 
-for (let i: number = 0; i < 1000; i++) {
+for (let i: number = 0; i < 10; i++) {
   arr.push((Math.random() * 1000) >> 0);
 }
 
@@ -377,6 +378,7 @@ console.timeEnd();
 console.time();
 console.log(countingSort([...arr], (a: number, b: number) => a > b));
 console.timeEnd();
+
 /**
  * leetcode 215.数组中的第K个最大元素 | https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
  *
