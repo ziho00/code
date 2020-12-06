@@ -3,14 +3,14 @@
 /**
  * 链表节点
  */
-class ListNode<T> {
-  val: T | undefined;
-  next: ListNode<T> | undefined | null;
-  constructor(params?: { val?: T; next?: ListNode<T> }) {
-    this.val = params?.val;
-    this.next = params?.next;
-  }
-}
+// class ListNode<T> {
+//   val: T | undefined;
+//   next: ListNode<T> | undefined | null;
+//   constructor(params?: { val?: T; next?: ListNode<T> }) {
+//     this.val = params?.val;
+//     this.next = params?.next;
+//   }
+// }
 
 /**
  * 单链表
