@@ -1,12 +1,3 @@
-// class ListNode<number> {
-//   val: number;
-//   next: ListNode<number> | null;
-//   constructor(val?: number, next?: ListNode<number> | null) {
-//     this.val = val === undefined ? 0 : val;
-//     this.next = next === undefined ? null : next;
-//   }
-// }
-
 /**
  * leetcoed 206. 反转链表
  *
