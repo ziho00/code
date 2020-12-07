@@ -1,11 +1,11 @@
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
+// class ListNode<number> {
+//   val: number;
+//   next: ListNode<number> | null;
+//   constructor(val?: number, next?: ListNode<number> | null) {
+//     this.val = val === undefined ? 0 : val;
+//     this.next = next === undefined ? null : next;
+//   }
+// }
 
 /**
  * leetcoed 206. 反转链表
@@ -14,14 +14,14 @@ class ListNode {
  *
  * @param head
  */
-function reverseList(head: ListNode | null): ListNode | null {
+function reverseList(head: ListNode<number> | null): ListNode<number> | null {
   if (!head || !head.next) {
     return head;
   }
-  let cur: null | ListNode = head,
-    pre: null | ListNode = null;
+  let cur: null | ListNode<number> = head,
+    pre: null | ListNode<number> = null;
   while (cur) {
-    let next: null | ListNode = cur.next;
+    let next: null | ListNode<number> = cur.next;
     cur.next = pre;
     pre = cur;
     cur = next;
@@ -29,11 +29,11 @@ function reverseList(head: ListNode | null): ListNode | null {
   return pre;
 }
 
-let list2: ListNode = new ListNode(1);
-list2.next = new ListNode(2);
-list2.next.next = new ListNode(3);
-list2.next.next.next = new ListNode(4);
-list2.next.next.next.next = new ListNode(5);
+let list2: ListNode<number> = new ListNode<number>(1);
+list2.next = new ListNode<number>(2);
+list2.next.next = new ListNode<number>(3);
+list2.next.next.next = new ListNode<number>(4);
+list2.next.next.next.next = new ListNode<number>(5);
 console.log(reverseList(list2));
 
 /**
@@ -42,12 +42,15 @@ console.log(reverseList(list2));
  * @param head
  * @param k
  */
-function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
+function getKthFromEnd(
+  head: ListNode<number> | null,
+  k: number
+): ListNode<number> | null {
   if (!head) {
     return head;
   }
-  let stack: ListNode[] = [];
-  let p: ListNode | null = head;
+  let stack: ListNode<number>[] = [];
+  let p: ListNode<number> | null = head;
   while (p) {
     stack.push(p);
     p = p.next;
@@ -55,12 +58,12 @@ function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
   return stack[stack.length - k];
 }
 
-// function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
+// function getKthFromEnd(head: ListNode<number> | null, k: number): ListNode<number> | null {
 //   if (!head) {
 //     return head;
 //   }
-//   let stack: ListNode[] = [];
-//   let p: ListNode | null = head;
+//   let stack: ListNode<number>[] = [];
+//   let p: ListNode<number> | null = head;
 //   while (p) {
 //     stack.push(p);
 //     p = p.next;
@@ -75,13 +78,13 @@ function getKthFromEnd(head: ListNode | null, k: number): ListNode | null {
  * @param l2
  */
 function mergeTwoLists(
-  l1: ListNode | null,
-  l2: ListNode | null
-): ListNode | null {
-  let vNode = new ListNode(),
+  l1: ListNode<number> | null,
+  l2: ListNode<number> | null
+): ListNode<number> | null {
+  let vNode = new ListNode<number>(),
     res = vNode;
   while (l1 && l2) {
-    if (l1.val > l2.val) {
+    if (Number(l1.val) > Number(l2.val)) {
       vNode.next = l2;
       l2 = l2.next;
     } else {
@@ -103,8 +106,8 @@ function mergeTwoLists(
   return res.next;
 }
 
-function swapPairs(head: ListNode | null): ListNode | null {
-  let vNode: ListNode | null = new ListNode();
+function swapPairs(head: ListNode<number> | null): ListNode<number> | null {
+  let vNode: ListNode<number> | null = new ListNode<number>();
   vNode.next = head;
   let p = vNode;
   while (p.next && p.next.next) {

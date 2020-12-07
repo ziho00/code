@@ -3,14 +3,14 @@
 /**
  * 链表节点
  */
-// class ListNode<T> {
-//   val: T | undefined;
-//   next: ListNode<T> | undefined | null;
-//   constructor(params?: { val?: T; next?: ListNode<T> }) {
-//     this.val = params?.val;
-//     this.next = params?.next;
-//   }
-// }
+class ListNode<T> {
+  val: T | null;
+  next: ListNode<T> | null;
+  constructor(val?: T, next?: ListNode<T>) {
+    this.val = val || null;
+    this.next = next || null;
+  }
+}
 
 /**
  * 单链表
@@ -32,7 +32,7 @@ class LinkLisk<T> {
     while (p.next) {
       p = p.next;
     }
-    p.next = new ListNode<T>({ val });
+    p.next = new ListNode<T>(val);
     this.size++;
     return true;
   }
@@ -41,7 +41,7 @@ class LinkLisk<T> {
     if (this.size >= this.MAX_SIZE) {
       return false;
     }
-    let insertItem = new ListNode<T>({ val });
+    let insertItem = new ListNode<T>(val);
     let p = this.head.next;
     insertItem.next = p;
     this.head.next = insertItem;
