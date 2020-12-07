@@ -146,3 +146,67 @@ function removeDuplicates(nums: number[]): number {
   }
   return counter;
 }
+
+function trap(height: number[]): number {
+  if (!height) {
+    return 0;
+  }
+  let stack: number[] = [];
+  let ans: number = 0;
+  for (let i = 0, l = height.length >> 0; i < l; i++) {
+    while (
+      stack.length >> 0 > 0 &&
+      height[i] > height[stack[stack.length - 1]]
+    ) {
+      let top: number = stack.pop()!;
+      while (!stack.length && height[stack[stack.length - 1]] == height[top]) {
+        stack.pop();
+      }
+      if (stack.length) {
+        let last = stack[stack.length - 1]; // 左边界位置
+        let distance: number = i - last - 1; // 宽度
+        // height[i] 和 height[last] 分别是有边界与左边界的高度，取最小值 - height[top] 则为可接雨水的高度
+        let curHeight: number = Math.min(height[i], height[last]) - height[top];
+        ans += distance * curHeight;
+      }
+    }
+    stack.push(i);
+  }
+  return ans;
+}
+
+var largestRectangleArea = function(heights: number[]) {
+  if (!heights.length) {
+    return 0;
+  }
+  let stack: number[] = [];
+  let maxArea: number = 0;
+  let i: number = 0;
+  while (i < heights.length) {
+    let len = stack.length - 1;
+    if (stack.length == 0 || heights[i] >= heights[stack[len]]) {
+      stack.push(i);
+      i++;
+      continue;
+    }
+
+    let top: number = stack.pop()!;
+    len = stack.length - 1;
+    let t = stack.length
+      ? heights[top] * (i - stack[len] - 1)
+      : heights[top] * i;
+    if (t > maxArea) maxArea = t;
+  }
+
+  while (stack.length) {
+    let top: number = stack.pop()!;
+    let len: number = stack.length - 1;
+    let t: number = stack.length
+      ? heights[top] * (i - stack[len] - 1)
+      : heights[top] * i;
+    if (t > maxArea) maxArea = t;
+  }
+
+  return maxArea;
+};
+console.log(largestRectangleArea([2,1,5,6,2,3]))
