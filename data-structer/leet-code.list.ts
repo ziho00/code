@@ -97,6 +97,10 @@ function mergeTwoLists(
   return res.next;
 }
 
+/**
+ *
+ * @param head
+ */
 function swapPairs(head: ListNode<number> | null): ListNode<number> | null {
   let vNode: ListNode<number> | null = new ListNode<number>();
   vNode.next = head;
