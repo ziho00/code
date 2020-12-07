@@ -7,13 +7,49 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var Stack = /** @class */ (function () {
-    function Stack(data, maxSize) {
+var OrderStack = /** @class */ (function () {
+    function OrderStack(data, maxSize) {
         this.data = data || [];
-        this.size = (data && data.length) >> 0;
+        this.size = (data === null || data === void 0 ? void 0 : data.length) || 0;
         this.MAX_SIZE = maxSize || Number.MAX_SAFE_INTEGER;
     }
-    Stack.prototype.push = function (val) {
+    OrderStack.prototype.push = function (val) {
+        if (this.isFull()) {
+            return false;
+        }
+        this.data[this.size++] = val;
+        return true;
+    };
+    OrderStack.prototype.pop = function () {
+        if (this.isEmpty()) {
+            return null;
+        }
+        var res = this.data[this.size - 1];
+        delete this.data[this.size - 1];
+        this.size--;
+        return res;
+    };
+    OrderStack.prototype.isEmpty = function () {
+        return this.size === 0;
+    };
+    OrderStack.prototype.isFull = function () {
+        return this.size === this.MAX_SIZE;
+    };
+    return OrderStack;
+}());
+/**
+ * 链式栈
+ *
+ * 由于方法基本都在链表中实现了，可以查看方法在链表中的具体实现
+ *
+ */
+var ListStack = /** @class */ (function () {
+    function ListStack(data, maxSize) {
+        this.data = data || new LinkLisk();
+        this.size = (data === null || data === void 0 ? void 0 : data.size) || 0;
+        this.MAX_SIZE = maxSize || Number.MAX_SAFE_INTEGER;
+    }
+    ListStack.prototype.push = function (val) {
         if (this.isFull()) {
             return false;
         }
@@ -21,23 +57,23 @@ var Stack = /** @class */ (function () {
         this.size++;
         return true;
     };
-    Stack.prototype.pop = function () {
+    ListStack.prototype.pop = function () {
         if (this.isEmpty()) {
             return null;
         }
         var res = this.data.pop();
         this.size--;
-        return res;
+        return res.val;
     };
-    Stack.prototype.isEmpty = function () {
+    ListStack.prototype.isEmpty = function () {
         return this.size === 0;
     };
-    Stack.prototype.isFull = function () {
+    ListStack.prototype.isFull = function () {
         return this.size === this.MAX_SIZE;
     };
-    return Stack;
+    return ListStack;
 }());
-var stack = new Stack([], 10);
+var stack = new OrderStack([], 10);
 for (var i = 0; i < 100; i++) {
     stack.push((Math.random() * 1000) >> 0);
 }
