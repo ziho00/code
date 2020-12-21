@@ -1,5 +1,8 @@
+// 默认状态
 const PENDING = "PENDING";
+// 成功状态态
 const FULFILLED = "FULFILLED";
+// 失败状态
 const REJECTED = "REJECTED";
 
 class _Promise {
@@ -256,36 +259,3 @@ function _ajax({ url, method, data }) {
     }
   });
 }
-
-new _Promise((resolve, reject) => {
-  console.log(1);
-  resolve(2);
-})
-  .then((value) => {
-    console.log(value);
-    return 3;
-  })
-  .then((value) => {
-    console.log(value);
-    return 4;
-  })
-  .then((value) => {
-    console.log(value);
-  });
-
-const timeout = (time) =>
-  new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
-
-const scheduler = new Scheduler();
-
-const addTask = (time, order) => {
-  scheduler.add(() => timeout(time).then(() => console.log(order)));
-};
-
-addTask(1000, "1");
-addTask(500, "2");
-addTask(300, "3");
-addTask(400, "4");
-scheduler.start();
