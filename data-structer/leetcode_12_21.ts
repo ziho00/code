@@ -1,5 +1,6 @@
 // 295. 数据流的中位数
 class MedianFinder {
+  // 大顶堆保存数据值小的一半
   maxHeap: Heap<number>;
   minHeap: Heap<number>;
   size: number;
