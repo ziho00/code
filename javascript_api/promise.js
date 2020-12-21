@@ -165,6 +165,7 @@ class _Promise {
   }
 }
 
+// 事件队列
 class Scheduler {
   constructor() {
     this.queue = [];
@@ -194,6 +195,66 @@ class Scheduler {
         this.handle();
       });
   }
+}
+
+// jsonp
+function _jsonp({ url, params, callbackName }) {
+  // 生成 url
+  const initUrl = () => {
+    let dataSrc = "";
+    // 格式化参数
+    Object.keys(params).forEach((key) => {
+      dataSrc += `${key}=${params[key]}&`;
+    });
+    dataSrc += `callback=${callbackName}`;
+    return `${url}?${dataSrc}`;
+  };
+  return new Promise((resolve, reject) => {
+    try {
+      const scriptElement = document.createElement("script");
+      scriptElement.src = initUrl();
+      document.body.appendChild(scriptElement);
+      window[callbackName] = (data) => {
+        resolve(data);
+        document.removeChild(scriptElement);
+      };
+    } catch (e) {
+      reject(e);
+    }
+  });
+}
+
+// ajax
+function _ajax({ url, method, data }) {
+  return new Promise((resolve, reject) => {
+    const xhr = XMLHttpRequest
+      ? new XMLHttpRequest()
+      : new ActiveXObject("Mscrosoft.XMLHttp");
+    method = method.toUpperCase();
+    xhr.open(method, url, false);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState !== 4) return;
+      if (xhr.status === 200 || xhr.status === 304) {
+        resolve(xhr.responseText);
+      } else {
+        reject(new Error(xhr.responseText));
+      }
+    };
+    if (method === "POST") {
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send(data);
+    } else {
+      let dataSrc = "";
+      Object.keys(data).forEach((key) => {
+        dataSrc += `${key}=${data[key]}`;
+      });
+      if (dataSrc.length > 0) {
+        url = `${url}?${dataSrc}`;
+      }
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send();
+    }
+  });
 }
 
 new _Promise((resolve, reject) => {
