@@ -75,6 +75,10 @@ class Heap<T> {
   _swap(idx1: number, idx2: number) {
     [this.data[idx1], this.data[idx2]] = [this.data[idx2], this.data[idx1]];
   }
+
+  peek() {
+    return this.data[0];
+  }
 }
 
 let heap = new Heap<number>([4, 5, 8, 2], (a: number, b: number) => a < b, 3);

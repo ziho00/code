@@ -62,6 +62,9 @@ var Heap = /** @class */ (function () {
         var _a;
         _a = [this.data[idx2], this.data[idx1]], this.data[idx1] = _a[0], this.data[idx2] = _a[1];
     };
+    Heap.prototype.peek = function () {
+        return this.data[0];
+    };
     return Heap;
 }());
 var heap = new Heap([4, 5, 8, 2], function (a, b) { return a < b; }, 3);
