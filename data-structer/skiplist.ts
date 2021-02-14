@@ -118,7 +118,7 @@ class SkipList<T> {
     // 查看是否找到
     let node: SLNode<T>;
     if (p.refer[0] !== undefined && this.isSame(val, p.refer[0].data)) {
-      // 找到就赋值给 哨兵元素
+      // 找到就赋值给哨兵元素
       node = p.refer[0];
       for (let i = 0; i < this.levelCount; i++) {
         if (

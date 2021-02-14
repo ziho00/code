@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="target">click</div>
+    <script>
+      const body = document.body;
+      const html = document.children[0];
+      const target = document.getElementById("target");
+      body.onclick = function() {
+        console.log("DOM0 click body");
+      };
+      html.onclick = function() {
+        console.log("DOM0 click html");
+      };
+      document.onclick = function() {
+        console.log("DOM0 click document");
+      };
+      target.onclick = function() {
+        console.log("DOM0 click target");
+        console.log(this.id);
+      };
+
+      body.addEventListener("click", function() {
+        console.log("DOM2 click body");
+      });
+
+      html.addEventListener("click", function() {
+        console.log("DOM2 click html");
+      });
+      document.addEventListener("click", function() {
+        console.log("DOM2 click document");
+      });
+      target.addEventListener("click", function() {
+        console.log("DOM2 click target");
+      });
+      target.addEventListener("click", function() {
+        console.log(this.id);
+      });
+      body.removeEventListener;
+    </script>
+  </body>
+</html>

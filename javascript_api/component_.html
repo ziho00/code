@@ -1,0 +1,20 @@
+<template>
+  <style></style>
+  <input type="text" />
+</template>
+
+<script>
+  (function() {
+    let element = Object.create(HTMLElement.prototype);
+    let template = document.currentScript.ownerDocument.querySelector(
+      "template"
+    ).content;
+    element.createdCallnack = () => {
+      let _self = this;
+      let shadowRoot = _self.createShadowRoot();
+      let clone = document.importNode(template, true);
+      shadowRoot.appendChild(clone);
+    };
+    customElements.define("z-input", element);
+  })();
+</script>

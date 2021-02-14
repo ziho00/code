@@ -234,7 +234,22 @@ function _ajax({ url, method, data }) {
       ? new XMLHttpRequest()
       : new ActiveXObject("Mscrosoft.XMLHttp");
     method = method.toUpperCase();
+
+    if (method === "GET") {
+      let dataSrc = "";
+      Object.keys(data).forEach((key, index) => {
+        console.log(key, index);
+        if (index !== 0) {
+          dataSrc += "&";
+        }
+        dataSrc += `${key}=${data[key]}`;
+      });
+      if (dataSrc.length > 0) {
+        url = `${url}?${dataSrc}`;
+      }
+    }
     xhr.open(method, url, false);
+
     xhr.onreadystatechange = function() {
       if (xhr.readyState !== 4) return;
       if (xhr.status === 200 || xhr.status === 304) {
@@ -247,15 +262,27 @@ function _ajax({ url, method, data }) {
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send(data);
     } else {
-      let dataSrc = "";
-      Object.keys(data).forEach((key) => {
-        dataSrc += `${key}=${data[key]}`;
-      });
-      if (dataSrc.length > 0) {
-        url = `${url}?${dataSrc}`;
-      }
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send();
     }
   });
 }
+
+new _Promise((resolve, reject) => {
+  console.log(1);
+  resolve(2);
+})
+  .then((res) => {
+    console.log(res);
+    return 3;
+  })
+  .then((res) => {
+    console.log(res);
+    return 4;
+  })
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
